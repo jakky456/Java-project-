@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+ddocument.addEventListener("DOMContentLoaded", () => {
     const emailField = document.getElementById("email");
     const emailError = document.getElementById("emailError");
     const passwordField = document.getElementById("password");
@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const otpField = document.getElementById("otp");
     const submitButton = document.getElementById("submitButton");
     const acceptCheckbox = document.getElementById("accept");
+    const myForm = document.getElementById("myForm");
 
     let otpCountdown;
 
@@ -53,7 +54,39 @@ document.addEventListener("DOMContentLoaded", () => {
     generateOtpBtn.addEventListener("click", () => {
         const generatedOtp = Math.floor(100000 + Math.random() * 900000); // Generate 6-digit OTP
         alert(`Your OTP is: ${generatedOtp}`);
+    });
 
+    // Form submission
+    myForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // prevent page reload
+
+        // Capture form data
+        const formData = {
+            name: document.getElementById("name").value,
+            email: emailField.value,
+            password: passwordField.value,
+            cpassword: cpasswordField.value,
+            age: document.getElementById("age").value,
+            phone: document.getElementById("phone").value,
+            otp: otpField.value,
+            acceptedTerms: acceptCheckbox.checked
+        };
+
+        console.log("Form Submitted:", formData);
+
+        // Show success message
+        alert("Form submitted successfully!");
+
+        // Reset form fields
+        myForm.reset();
+
+        // Clear validation messages
+        emailError.textContent = "";
+        passwordError.textContent = "";
+        passwordStrength.textContent = "";
+
+        // Disable submit button again after reset
+        submitButton.disabled = true;
     });
 
     // Check form validity
